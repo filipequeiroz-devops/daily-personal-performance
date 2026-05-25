@@ -4,7 +4,7 @@ data "archive_file" "daily-personal-perfomance-lambda-zip" {
   output_path = "${path.module}/daily_personal_performance_payload/daily_personal_performance_handler.zip"
 }
 
-resource "aws_lambda_function" "contaProtocolos" {
+resource "aws_lambda_function" "daily_personal_performance" {
   function_name                  = "daily_personal_performance"
   filename                       = data.archive_file.daily-personal-perfomance-lambda-zip.output_path
   handler                        = "personal_performance.lambda_handler"

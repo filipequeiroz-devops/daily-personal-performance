@@ -8,7 +8,7 @@ terraform {
 
   backend "s3" {
     bucket  = "terraform-states-bucket-filipe"
-    key     = "website-conta-protocolos/terraform.tfstate"
+    key     = "website-daily-personal-performance/terraform.tfstate"
     region  = "us-east-1"
     encrypt = true
   }
