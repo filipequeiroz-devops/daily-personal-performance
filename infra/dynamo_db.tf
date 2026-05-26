@@ -3,9 +3,9 @@ resource "aws_dynamodb_table" "daily_personal_performance" {
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "data"
 
-    attribute {
-        name = "data"
-        type = "S"
-    }
+  attribute {
+    name = "data"
+    type = "S"
+  }
 
 }
