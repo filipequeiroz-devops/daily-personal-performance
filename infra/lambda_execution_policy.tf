@@ -33,7 +33,7 @@ resource "aws_iam_policy" "lambda_policy" {
           "dynamodb:GetItem",
           "dynamodb:Scan"
         ]
-        Resource = aws_dynamodb_table.daily-personal-performance.arn
+        Resource = aws_dynamodb_table.DailyPersonalPerformance.arn
       },
       # Permissão para criar logs no CloudWatch (Boa prática)
       {

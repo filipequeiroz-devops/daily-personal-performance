@@ -32,7 +32,7 @@ resource "aws_apigatewayv2_api" "daily-personal-performance-API" {
 #============ INTEGRAÇÕES  LAMBDA ============
 resource "aws_apigatewayv2_integration" "daily-personal-performance-integration" {
   api_id                 = aws_apigatewayv2_api.daily-personal-performance-API.id
-  integration_uri        = aws_lambda_function.daily-personal-performance.invoke_arn
+  integration_uri        = aws_lambda_function.daily_personal_performance.invoke_arn
   connection_type        = "INTERNET"
   integration_method     = "POST"
   integration_type       = "AWS_PROXY"
@@ -82,7 +82,7 @@ resource "aws_apigatewayv2_stage" "default" {
 resource "aws_lambda_permission" "api_gw" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.daily-personal-performance.function_name
+  function_name = aws_lambda_function.daily_personal_performance.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.daily-personal-performance-API.execution_arn}/production/*"
 }
