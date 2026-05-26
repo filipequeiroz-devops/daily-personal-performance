@@ -14,20 +14,20 @@ def lambda_handler(event, context):
 
         # O payload já vem formatado do frontend, exemplo:
         # {
-        #   "date": "2026-05-25",
+        #   "data": "2026-05-25",
         #   "30min_udemy": "yes",
         #   "30min_ingles": "no",
         #   ...
         # }
 
-        if not body or 'date' not in body:
+        if not body or 'data' not in body:
             return {
                 'statusCode': 400,
-                'body': json.dumps({'message': 'Missing date or empty payload.'})
+                'body': json.dumps({'message': 'Missing data or empty payload.'})
             }
 
         # Salva o item no DynamoDB
-        # Assumindo que a chave primária da tabela é 'date' (tipo String)
+        # Assumindo que a chave primária da tabela é 'data' (tipo String)
         table.put_item(Item=body)
 
         return {
