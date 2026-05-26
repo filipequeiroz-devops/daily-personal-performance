@@ -51,7 +51,7 @@ resource "aws_apigatewayv2_route" "route_depoimentos_post" {
 
 resource "aws_apigatewayv2_route" "route_depoimentos_get" {
   api_id    = aws_apigatewayv2_api.daily-personal-performance-API.id
-  route_key = "GET /depoimentos"
+  route_key = "GET /perfomance"
   target    = "integrations/${aws_apigatewayv2_integration.daily-personal-performance-integration.id}"
 }
 

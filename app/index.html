@@ -116,6 +116,26 @@
     // Exemplo: 'https://seuid.execute-api.us-east-1.amazonaws.com/production/perfomance'
     const API_URL = 'https://3nifp96vv6.execute-api.us-east-1.amazonaws.com/production/perfomance';
 
+    // Ao carregar a página, busca os dados de hoje
+    window.addEventListener('DOMContentLoaded', async () => {
+        const today = new Date().toISOString().split('T')[0];
+        try {
+            const response = await fetch(`${API_URL}?data=${today}`);
+            if (response.ok) {
+                const item = await response.json();
+                if (item && Object.keys(item).length > 0) {
+                    if (item['30min_udemy'] === 'yes') document.getElementById('udemy').checked = true;
+                    if (item['30min_ingles'] === 'yes') document.getElementById('ingles').checked = true;
+                    if (item['30min_violao'] === 'yes') document.getElementById('violao').checked = true;
+                    if (item['30min_violino'] === 'yes') document.getElementById('violino').checked = true;
+                    if (item['5_paginas_livro'] === 'yes') document.getElementById('livro').checked = true;
+                }
+            }
+        } catch (error) {
+            console.error('Erro ao carregar os dados de hoje:', error);
+        }
+    });
+
     document.getElementById('tasksForm').addEventListener('submit', async function(event) {
         event.preventDefault();
 
