@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Personal Performance</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        .task-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .task-item label {
+            margin-left: 10px;
+            font-size: 16px;
+            color: #555;
+            cursor: pointer;
+        }
+        .task-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .btn-salvar {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-salvar:hover {
+            background-color: #0056b3;
+        }
+        .btn-salvar:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .success {
+            color: #28a745;
+        }
+        .error {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Daily Tasks</h2>
+    <form id="tasksForm">
+        <ul class="task-list">
+            <li class="task-item">
+                <input type="checkbox" id="udemy" name="30min_udemy">
+                <label for="udemy">30min de Udemy</label>
+            </li>
+            <li class="task-item">
+                <input type="checkbox" id="ingles" name="30min_ingles">
+                <label for="ingles">30min de Inglês</label>
+            </li>
+            <li class="task-item">
+                <input type="checkbox" id="violao" name="30min_violao">
+                <label for="violao">30min de Violão</label>
+            </li>
+            <li class="task-item">
+                <input type="checkbox" id="violino" name="30min_violino">
+                <label for="violino">30min de Violino</label>
+            </li>
+            <li class="task-item">
+                <input type="checkbox" id="livro" name="5_paginas_livro">
+                <label for="livro">5 páginas de um livro</label>
+            </li>
+        </ul>
+        <button type="submit" class="btn-salvar" id="btnSalvar">Salvar</button>
+        <div id="statusMessage" class="message"></div>
+    </form>
+</div>
+
+<script>
+    // Substitua esta URL pela URL da sua API Gateway (stage /production)
+    // Exemplo: 'https://seuid.execute-api.us-east-1.amazonaws.com/production/perfomance'
+    const API_URL = 'COLOQUE_SUA_URL_DO_API_GATEWAY_AQUI/perfomance';
+
+    document.getElementById('tasksForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const btnSalvar = document.getElementById('btnSalvar');
+        const statusMessage = document.getElementById('statusMessage');
+
+        // Pega a data de hoje no formato YYYY-MM-DD
+        const today = new Date().toISOString().split('T')[0];
+
+        // Monta o payload conforme a regra definida
+        const payload = {
+            date: today,
+            "30min_udemy": document.getElementById('udemy').checked ? "yes" : "no",
+            "30min_ingles": document.getElementById('ingles').checked ? "yes" : "no",
+            "30min_violao": document.getElementById('violao').checked ? "yes" : "no",
+            "30min_violino": document.getElementById('violino').checked ? "yes" : "no",
+            "5_paginas_livro": document.getElementById('livro').checked ? "yes" : "no"
+        };
+
+        // UI Feedback
+        btnSalvar.disabled = true;
+        btnSalvar.innerText = 'Salvando...';
+        statusMessage.innerText = '';
+        statusMessage.className = 'message';
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                statusMessage.innerText = 'Tarefas salvas com sucesso!';
+                statusMessage.classList.add('success');
+            } else {
+                const errData = await response.text();
+                statusMessage.innerText = 'Erro ao salvar. Verifique o console.';
+                statusMessage.classList.add('error');
+                console.error('Erro na API:', errData);
+            }
+        } catch (error) {
+            statusMessage.innerText = 'Erro de rede. Tente novamente.';
+            statusMessage.classList.add('error');
+            console.error('Erro de requisição:', error);
+        } finally {
+            btnSalvar.disabled = false;
+            btnSalvar.innerText = 'Salvar';
+        }
+    });
+</script>
+
+</body>
+</html>
