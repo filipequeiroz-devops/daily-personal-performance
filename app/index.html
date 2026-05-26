@@ -105,6 +105,10 @@
                 <input type="checkbox" id="livro" name="5_paginas_livro">
                 <label for="livro">5 páginas de um livro</label>
             </li>
+            <li class="task-item">
+                <input type="checkbox" id="gitpush" name="1_git_push">
+                <label for="gitpush">1 git push diário</label>
+            </li>
         </ul>
         <button type="submit" class="btn-salvar" id="btnSalvar">Salvar</button>
         <div id="statusMessage" class="message"></div>
@@ -129,6 +133,7 @@
                     if (item['30min_violao'] === 'yes') document.getElementById('violao').checked = true;
                     if (item['30min_violino'] === 'yes') document.getElementById('violino').checked = true;
                     if (item['5_paginas_livro'] === 'yes') document.getElementById('livro').checked = true;
+                    if (item['1_git_push'] === 'yes') document.getElementById('gitpush').checked = true;
                 }
             }
         } catch (error) {
@@ -152,7 +157,8 @@
             "30min_ingles": document.getElementById('ingles').checked ? "yes" : "no",
             "30min_violao": document.getElementById('violao').checked ? "yes" : "no",
             "30min_violino": document.getElementById('violino').checked ? "yes" : "no",
-            "5_paginas_livro": document.getElementById('livro').checked ? "yes" : "no"
+            "5_paginas_livro": document.getElementById('livro').checked ? "yes" : "no",
+            "1_git_push": document.getElementById('gitpush').checked ? "yes" : "no"
         };
 
         // UI Feedback
