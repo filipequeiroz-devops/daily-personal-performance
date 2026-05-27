@@ -116,13 +116,28 @@
 </div>
 
 <script>
-    // Substitua esta URL pela URL da sua API Gateway (stage /production)
-    // Exemplo: 'https://seuid.execute-api.us-east-1.amazonaws.com/production/perfomance'
     const API_URL = 'https://3nifp96vv6.execute-api.us-east-1.amazonaws.com/production/perfomance';
 
-    // Ao carregar a página, busca os dados de hoje
+    function getBrazilDate() {
+    const d = new Date();
+
+    const formatter = new Intl.DateTimeFormat('pt-BR', {
+        timeZone: 'America/Sao_Paulo',
+        year    : 'numeric',
+        month   : '2-digit',
+        day     : '2-digit'
+    });
+    
+    const parts = formatter.formatToParts(d);
+    const day   = parts.find(p => p.type === 'day').value;
+    const month = parts.find(p => p.type === 'month').value;
+    const year  = parts.find(p => p.type === 'year').value;
+    
+    return `${year}-${month}-${day}`; // Retorna perfeitamente YYYY-MM-DD
+}
+
     window.addEventListener('DOMContentLoaded', async () => {
-        const today = new Date().toISOString().split('T')[0];
+        const today = getBrazilDate();
         try {
             const response = await fetch(`${API_URL}?data=${today}`);
             if (response.ok) {
@@ -148,17 +163,17 @@
         const statusMessage = document.getElementById('statusMessage');
 
         // Pega a data de hoje no formato YYYY-MM-DD
-        const today = new Date().toISOString().split('T')[0];
+        const today = getBrazilDate();
 
         // Monta o payload conforme a regra definida
         const payload = {
             data: today,
-            "30min_udemy": document.getElementById('udemy').checked ? "yes" : "no",
-            "30min_ingles": document.getElementById('ingles').checked ? "yes" : "no",
-            "30min_violao": document.getElementById('violao').checked ? "yes" : "no",
-            "30min_violino": document.getElementById('violino').checked ? "yes" : "no",
+            "30min_udemy"    : document.getElementById('udemy').checked ? "yes" : "no",
+            "30min_ingles"   : document.getElementById('ingles').checked ? "yes" : "no",
+            "30min_violao"   : document.getElementById('violao').checked ? "yes" : "no",
+            "30min_violino"  : document.getElementById('violino').checked ? "yes" : "no",
             "5_paginas_livro": document.getElementById('livro').checked ? "yes" : "no",
-            "1_git_push": document.getElementById('gitpush').checked ? "yes" : "no"
+            "1_git_push"     : document.getElementById('gitpush').checked ? "yes" : "no"
         };
 
         // UI Feedback
