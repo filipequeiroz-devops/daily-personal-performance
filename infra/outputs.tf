@@ -1,5 +1,5 @@
 output "apigateway_url" {
-  value = aws_api_gateway_rest_api.api_gateway.execution_arn
+  value = aws_apigatewayv2_api.daily-personal-performance-API.api_endpoint
 }
 
 output "s3_website_url" {
