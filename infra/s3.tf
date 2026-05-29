@@ -6,27 +6,12 @@ resource "aws_s3_bucket" "daily_personal_perfomance_website" {
 resource "aws_s3_bucket_public_access_block" "daily_personal_perfomance_website" {
   bucket = aws_s3_bucket.daily_personal_perfomance_website.id
 
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_policy" "daily_personal_perfomance_website" {
-  bucket = aws_s3_bucket.daily_personal_perfomance_website.id
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect    = "Allow"
-        Principal = "*"
-        Action    = "s3:GetObject"
-        Resource  = "${aws_s3_bucket.daily_personal_perfomance_website.arn}/*"
-      }
-    ]
-  })
-}
 
 resource "aws_s3_bucket_versioning" "daily_personal_perfomance_website" {
   bucket = aws_s3_bucket.daily_personal_perfomance_website.id
@@ -46,6 +31,34 @@ resource "aws_s3_bucket_website_configuration" "daily_personal_perfomance_websit
   error_document {
     key = "error.html"
   }
+}
+
+# Permite que o CloudFront acesse os arquivos do bucket S3, mas bloqueia o acesso direto via URL do S3
+resource "aws_s3_bucket_policy" "allow_cloudfront_oac" {
+  # Referencia o ID do seu bucket S3 existente
+  bucket = aws_s3_bucket.daily_personal_perfomance_website.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "AllowCloudFrontServicePrincipalReadOnly"
+        Effect    = "Allow"
+        Principal = {
+          Service = "cloudfront.amazonaws.com"
+        }
+        Action   = "s3:GetObject"
+        # Libera o acesso a todos os arquivos dentro do bucket (/*)
+        Resource = "${aws_s3_bucket.daily_personal_perfomance_website.arn}/*"
+        Condition = {
+          StringEquals = {
+            # Amarra a permissão EXATAMENTE ao ARN da distribuição criada no passo 2
+            "AWS:SourceArn" = aws_cloudfront_distribution.daily_personal_performance_distribution.arn
+          }
+        }
+      }
+    ]
+  })
 }
 
 resource "aws_s3_object" "app_files" {
