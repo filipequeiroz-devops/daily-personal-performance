@@ -43,7 +43,7 @@ resource "aws_cognito_identity_provider" "google" {
 }
 
 resource "aws_cognito_user_pool_client" "main" {
-  name         = "selfpsico-app-client"
+  name         = "daily-personal-performance-client"
   user_pool_id = aws_cognito_user_pool.main.id
 
   # Suporta apenas Google para simplificar
@@ -54,7 +54,7 @@ resource "aws_cognito_user_pool_client" "main" {
   allowed_oauth_flows                  = ["code"]
   allowed_oauth_scopes                 = ["email", "openid", "profile"]
   callback_urls                        = [var.cognito_redirect_uri]
-  logout_urls                          = ["https://www.selfpsico.com.br/depoimentos.html"]
+  logout_urls                          = ["https://daily-personal-perfomance.filipe-deabreu.com"]
 
   explicit_auth_flows = [
     "ALLOW_USER_SRP_AUTH",
