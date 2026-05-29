@@ -15,12 +15,12 @@ resource "aws_cloudfront_origin_access_control" "daily_performance_oac" {
 # 2. DISTRIBUIÇÃO CLOUDFRONT
 # -------------------------------------------------------------------------
 resource "aws_cloudfront_distribution" "daily_personal_performance_distribution" {
-  
+
   origin {
     # Aponta para a URL regional do  bucket S3
-    domain_name              = aws_s3_bucket.daily_personal_perfomance_website.bucket_regional_domain_name
-    origin_id                = "S3-daily-personal-performance-website"
-    
+    domain_name = aws_s3_bucket.daily_personal_perfomance_website.bucket_regional_domain_name
+    origin_id   = "S3-daily-personal-performance-website"
+
     # Vinculando o OAC criado
     origin_access_control_id = aws_cloudfront_origin_access_control.daily_performance_oac.id
   }
@@ -36,26 +36,26 @@ resource "aws_cloudfront_distribution" "daily_personal_performance_distribution"
   aliases = ["daily-personal-perfomance.filipe-deabreu.com"]
 
   default_cache_behavior {
-    target_origin_id       = "S3-daily-personal-performance-website"
-    
+    target_origin_id = "S3-daily-personal-performance-website"
+
     # Força qualquer requisição HTTP a ser redirecionada para HTTPS
-    viewer_protocol_policy = "redirect-to-https" 
+    viewer_protocol_policy = "redirect-to-https"
 
     allowed_methods = ["GET", "HEAD", "OPTIONS"]
     cached_methods  = ["GET", "HEAD"]
 
     forwarded_values {
       query_string = false
-      
+
       # Sem cache por ser site estático, e também para evitar que o CloudFront crie uma cache para cada combinação de cookies (o que pode explodir o custo)
       cookies {
-        forward = "none" 
+        forward = "none"
       }
     }
   }
 
   # Limita os servidores para baratear o custo (EUA, Canadá e Europa)
-  price_class = "PriceClass_100" 
+  price_class = "PriceClass_100"
 
   restrictions {
     geo_restriction {

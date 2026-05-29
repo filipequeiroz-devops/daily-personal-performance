@@ -1,6 +1,6 @@
 resource "aws_acm_certificate" "daily_personal_performance_cert" {
   # Força a criação na região correta usando o provider aliased
-  provider          = aws.us_east_1 
+  provider          = aws.us_east_1
   domain_name       = "daily-personal-perfomance.filipe-deabreu.com"
   validation_method = "DNS"
 

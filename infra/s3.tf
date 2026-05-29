@@ -42,12 +42,12 @@ resource "aws_s3_bucket_policy" "allow_cloudfront_oac" {
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "AllowCloudFrontServicePrincipalReadOnly"
-        Effect    = "Allow"
+        Sid    = "AllowCloudFrontServicePrincipalReadOnly"
+        Effect = "Allow"
         Principal = {
           Service = "cloudfront.amazonaws.com"
         }
-        Action   = "s3:GetObject"
+        Action = "s3:GetObject"
         # Libera o acesso a todos os arquivos dentro do bucket (/*)
         Resource = "${aws_s3_bucket.daily_personal_perfomance_website.arn}/*"
         Condition = {
