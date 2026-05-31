@@ -8,6 +8,7 @@ on:
     paths:
       - 'app/**'
       - 'infra/**'
+      - '.github/workflows/**'
 
 jobs:
   test_and_validate:
