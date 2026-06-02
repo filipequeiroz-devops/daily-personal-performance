@@ -128,10 +128,13 @@
         day     : '2-digit'
     });
     
-    const parts = formatter.formatToParts(d);
-    const day   = parts.find(p => p.type === 'day').value;
-    const month = parts.find(p => p.type === 'month').value;
-    const year  = parts.find(p => p.type === 'year').value;
+    const parts             = formatter.formatToParts(d);
+    const day               = parts.find(p => p.type === 'day').value;
+    const month             = parts.find(p => p.type === 'month').value;
+    const year              = parts.find(p => p.type === 'year').value;
+    const COGNITO_CLIENT_ID = "5qb8pffc16v5jp1nrl6oa0g7dr";
+    const COGNITO_DOMAIN    = "https://daily-personal-performance-auth.auth.us-east-1.amazoncognito.com";
+    const REDIRECT_URI      = "https://daily-personal-perfomance.filipe-deabreu.com";
     
     return `${year}-${month}-${day}`; // Retorna perfeitamente YYYY-MM-DD
 }
