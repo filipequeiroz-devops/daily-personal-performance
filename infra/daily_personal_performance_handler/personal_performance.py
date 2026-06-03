@@ -10,7 +10,7 @@ table_name  = os.environ.get('DYNAMODB_TABLENAME', 'daily_personal_performance')
 table       = dynamodb.Table(table_name)
 
 # Configurações do Cognito vindas das variáveis de ambiente da Lambda
-COGNITO_DOMAIN    = os.environ.get('COGNITO_DOMAIN', 'daily-personal-performance-auth.auth.us-east-1.amazoncognito.com')
+COGNITO_DOMAIN    = 'daily-personal-performance-auth.auth.us-east-1.amazoncognito.com'
 COGNITO_CLIENT_ID = os.environ.get('COGNITO_CLIENT_ID', '5qb8pffc16v5jp1nrl6oa0g7dr')
 REDIRECT_URI      = os.environ.get('REDIRECT_URI', 'https://daily-personal-perfomance.filipe-deabreu.com')
 
