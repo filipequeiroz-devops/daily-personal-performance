@@ -18,5 +18,5 @@ variable "cognito_domain_prefix" {
 variable "cognito_redirect_uri" {
   type        = string
   description = "URI de redirecionamento (Callback) para o Cognito"
-  default     = "https://daily-personal-perfomance.com.br/depoimentos.html"
+  default     = "https://daily-personal-perfomance.com.br"
 }
