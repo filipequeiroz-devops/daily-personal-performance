@@ -58,17 +58,19 @@ resource "aws_apigatewayv2_route" "route_depoimentos_get" {
 
 resource "aws_apigatewayv2_route" "route_depoimentos_put" {
   api_id    = aws_apigatewayv2_api.daily-personal-performance-API.id
-  route_key = "PUT /depoimentos"
+  route_key = "PUT /perfomance"
   target    = "integrations/${aws_apigatewayv2_integration.daily-personal-performance-integration.id}"
 }
 
 
 resource "aws_apigatewayv2_route" "route_depoimentos_delete" {
   api_id    = aws_apigatewayv2_api.daily-personal-performance-API.id
-  route_key = "DELETE /depoimentos"
+  route_key = "DELETE /perfomance"
   target    = "integrations/${aws_apigatewayv2_integration.daily-personal-performance-integration.id}"
 }
 
+#Eu reaproveitei o codigo de oturo API gateway que eu tinha criado e esquece de renomeado o nome do recurso terraform de "depoimentos" para "daily-personal-performance", 
+#Mas isso não tem impacto nenhum, é só um detalhe de nomenclatura mesmo. O importante é que as rotas estão corretas e apontando para a integração com a lambda.
 
 #============ STAGES ============
 
