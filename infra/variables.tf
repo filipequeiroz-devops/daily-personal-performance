@@ -12,7 +12,7 @@ variable "google_client_secret" {
 variable "cognito_domain_prefix" {
   type        = string
   description = "Prefixo para o domínio da Hosted UI do Cognito (deve ser único globalmente)"
-  default     = "daily-personal-performance-auth"
+  default     = "daily-personal-perfomance-auth"
 }
 
 variable "cognito_redirect_uri" {
