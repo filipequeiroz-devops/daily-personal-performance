@@ -51,7 +51,7 @@ resource "aws_cognito_user_pool_client" "main" {
 
   # Configurações OAuth
   allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_flows                  = ["code"]
+  allowed_oauth_flows                  = ["implicit"]
   allowed_oauth_scopes                 = ["email", "openid", "profile"]
   callback_urls                        = [var.cognito_redirect_uri]
   logout_urls                          = ["https://daily-personal-perfomance.filipe-deabreu.com"]
