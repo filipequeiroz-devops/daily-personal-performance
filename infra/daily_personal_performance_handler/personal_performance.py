@@ -45,8 +45,8 @@ def lambda_handler(event, context):
         
         user_email = verificar_token(auth_header)
         
-        # Bloqueio de segurança: Permite apenas o seu e-mail
-        MEU_EMAIL_AUTORIZADO = "seu.email.real@gmail.com" # <-- COLOQUE SEU EMAIL AQUI
+        # Bloqueio de segurança: Permite apenas o meu e-mail
+        MEU_EMAIL_AUTORIZADO = "filipe.queiroz.abreu@gmail.copm" 
         
         if not user_email or user_email != MEU_EMAIL_AUTORIZADO:
             return {
