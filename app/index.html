@@ -164,18 +164,21 @@
         window.location.href = url;
     }
 
-    // Ciclo de inicialização e verificação de autenticação
+// Ciclo de inicialização e verificação de autenticação
     window.addEventListener('DOMContentLoaded', async () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const code = urlParams.get('code');
+        // MUDANÇA AQUI: Lê o hash (#) da URL em vez da interrogação (?)
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const token = hashParams.get('id_token');
 
-        if (code) {
+        if (token) {
             // 1. Usuário autenticado: Alterna as telas
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('app-screen').style.display = 'block';
-            document.getElementById('auth_code').value = code;
+            
+            // Salva o token no input escondido para usar no botão Salvar
+            document.getElementById('auth_code').value = token;
 
-            // 2. Limpa a URL para esconder o código de autorização exposto
+            // 2. Limpa a URL para esconder o token gigante
             window.history.replaceState({}, document.title, window.location.pathname);
 
             // 3. Busca os dados na API passando o Token de autenticação
@@ -184,8 +187,7 @@
                 const response = await fetch(`${API_URL}?data=${today}`, {
                     method: 'GET',
                     headers: {
-                        // Envia o código/token para o Authorizer do seu API Gateway validar
-                        'Authorization': `Bearer ${code}` 
+                        'Authorization': `Bearer ${token}` 
                     }
                 });
                 
@@ -204,7 +206,7 @@
                 console.error('Erro ao carregar os dados de hoje:', error);
             }
         } else {
-            // Se não há código na URL, garante que o app está oculto e mostra apenas o login
+            // Se não há token, mostra a tela de login
             document.getElementById('login-screen').style.display = 'block';
             document.getElementById('app-screen').style.display = 'none';
         }
