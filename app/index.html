@@ -194,12 +194,12 @@
                 if (response.ok) {
                     const item = await response.json();
                     if (item && Object.keys(item).length > 0) {
-                        if (item['30min_udemy'] === 'yes') document.getElementById('udemy').checked = true;
-                        if (item['30min_ingles'] === 'yes') document.getElementById('ingles').checked = true;
-                        if (item['30min_violao'] === 'yes') document.getElementById('violao').checked = true;
-                        if (item['30min_violino'] === 'yes') document.getElementById('violino').checked = true;
-                        if (item['5_paginas_livro'] === 'yes') document.getElementById('livro').checked = true;
-                        if (item['1_git_push'] === 'yes') document.getElementById('gitpush').checked = true;
+                        if (item['30min_udemy']     === 'yes') document.getElementById('udemy').checked   = true;
+                        if (item['30min_ingles']    === 'yes') document.getElementById('ingles').checked  = true;
+                        if (item['30min_violao']    === 'yes') document.getElementById('violao').checked  = true;
+                        if (item['30min_violino']   === 'yes') document.getElementById('violino').checked = true;
+                        if (item['5_paginas_livro'] === 'yes') document.getElementById('livro').checked   = true;
+                        if (item['1_git_push']      === 'yes') document.getElementById('gitpush').checked = true;
                     }
                 }
             } catch (error) {
@@ -208,7 +208,7 @@
         } else {
             // Se não há token, mostra a tela de login
             document.getElementById('login-screen').style.display = 'block';
-            document.getElementById('app-screen').style.display = 'none';
+            document.getElementById('app-screen').style.display   = 'none';
         }
     });
 
@@ -216,10 +216,10 @@
     document.getElementById('tasksForm').addEventListener('submit', async function(event) {
         event.preventDefault();
 
-        const btnSalvar = document.getElementById('btnSalvar');
+        const btnSalvar     = document.getElementById('btnSalvar');
         const statusMessage = document.getElementById('statusMessage');
-        const code = document.getElementById('auth_code').value;
-        const today = getBrazilDate();
+        const code          = document.getElementById('auth_code').value;
+        const today         = getBrazilDate();
 
         const payload = {
             data: today,
@@ -241,7 +241,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Envia o token para proteger o método POST da sua API
+                    // Envia o token para proteger o método POST 
                     'Authorization': `Bearer ${code}`
                 },
                 body: JSON.stringify(payload)
