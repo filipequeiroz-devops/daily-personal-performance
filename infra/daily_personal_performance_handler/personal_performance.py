@@ -46,6 +46,7 @@ def lambda_handler(event, context):
         
         # Bloqueio de segurança: Permite apenas o meu e-mail
         MEU_EMAIL_AUTORIZADO = os.environ.get('meu_email_autorizado')
+        print(f"Email autorizado: {MEU_EMAIL_AUTORIZADO}")
         
         if not user_email or user_email != MEU_EMAIL_AUTORIZADO:
             return {
