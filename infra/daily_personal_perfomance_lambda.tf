@@ -36,7 +36,8 @@ resource "aws_lambda_function" "daily_personal_performance" {
   environment {
 
     variables = {
-      DYNAMODB_TABLENAME = aws_dynamodb_table.daily_personal_performance.name
+      DYNAMODB_TABLENAME   = aws_dynamodb_table.daily_personal_performance.name
+      MEU_EMAIL_AUTORIZADO = var.meu_email_autorizado
     }
   }
 }

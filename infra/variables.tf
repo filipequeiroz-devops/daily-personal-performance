@@ -20,3 +20,8 @@ variable "cognito_redirect_uri" {
   description = "URI de redirecionamento (Callback) para o Cognito"
   default     = "https://daily-personal-perfomance.filipe-deabreu.com"
 }
+
+variable "meu_email_autorizado" {
+  type        = string
+  description = "O e-mail autorizado a acessar a API (defina no Terraform Cloud para não expor no código)"
+}

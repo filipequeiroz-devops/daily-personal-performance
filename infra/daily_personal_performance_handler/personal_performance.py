@@ -4,7 +4,7 @@ import boto3
 import base64
 
 dynamodb    = boto3.resource('dynamodb')
-table_name  = os.environ.get('DYNAMODB_TABLENAME', 'daily_personal_performance')
+table_name  = os.environ.get('DYNAMODB_TABLENAME')
 table       = dynamodb.Table(table_name)
 
 def verificar_token(auth_header):
@@ -45,7 +45,7 @@ def lambda_handler(event, context):
         user_email  = verificar_token(auth_header)
         
         # Bloqueio de segurança: Permite apenas o meu e-mail
-        MEU_EMAIL_AUTORIZADO = os.environ.get('MEU_EMAIL_AUTORIZADO')
+        MEU_EMAIL_AUTORIZADO = os.environ.get('meu_email_autorizado')
         
         if not user_email or user_email != MEU_EMAIL_AUTORIZADO:
             return {
