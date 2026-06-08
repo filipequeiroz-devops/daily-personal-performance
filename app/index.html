@@ -144,6 +144,7 @@
     const COGNITO_DOMAIN    = "daily-personal-perfomance-auth.auth.us-east-1.amazoncognito.com";
     const REDIRECT_URI      = "https://daily-personal-perfomance.filipe-deabreu.com";
 
+    // Função para pegar a hora correta, no fuso horário de Brasília
     function getBrazilDate() {
         const d = new Date();
         const formatter = new Intl.DateTimeFormat('pt-BR', {
@@ -159,6 +160,7 @@
         return `${year}-${month}-${day}`;
     }
 
+    //Função para iniciar o login via Google usando o Cognito Hosted UI
     function loginGoogle() {
         const url = `https://${COGNITO_DOMAIN}/oauth2/authorize?client_id=${COGNITO_CLIENT_ID}&response_type=token&scope=email+openid+profile&redirect_uri=${REDIRECT_URI}&identity_provider=Google`;
         window.location.href = url;
@@ -223,15 +225,15 @@
 
         const payload = {
             data: today,
-            "30min_udemy"    : document.getElementById('udemy').checked ? "yes" : "no",
-            "30min_ingles"   : document.getElementById('ingles').checked ? "yes" : "no",
-            "30min_violao"   : document.getElementById('violao').checked ? "yes" : "no",
+            "30min_udemy"    : document.getElementById('udemy').checked   ? "yes" : "no",
+            "30min_ingles"   : document.getElementById('ingles').checked  ? "yes" : "no",
+            "30min_violao"   : document.getElementById('violao').checked  ? "yes" : "no",
             "30min_violino"  : document.getElementById('violino').checked ? "yes" : "no",
-            "5_paginas_livro": document.getElementById('livro').checked ? "yes" : "no",
+            "5_paginas_livro": document.getElementById('livro').checked   ? "yes" : "no",
             "1_git_push"     : document.getElementById('gitpush').checked ? "yes" : "no"
         };
 
-        btnSalvar.disabled = true;
+        btnSalvar.disabled  = true;
         btnSalvar.innerText = 'Salvando...';
         statusMessage.innerText = '';
         statusMessage.className = 'message';

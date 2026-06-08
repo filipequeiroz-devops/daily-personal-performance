@@ -41,7 +41,11 @@ def lambda_handler(event, context):
 
     try:
         req_headers = event.get('headers', {})
+        print(f"Headers recebidos: {req_headers}")
+        
         auth_header = req_headers.get('Authorization') or req_headers.get('authorization')
+        print(f"Authorization header: {auth_header}")
+       
         user_email  = verificar_token(auth_header)
         
         # Bloqueio de segurança: Permite apenas o meu e-mail
